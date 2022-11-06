@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { CompanyService } from 'src/services/company.service';
 import { Company } from './models/company';
 import { switchMap, tap, map, catchError, filter } from 'rxjs/operators';
+import { CsvDataService } from 'src/services/csv-data.service';
 
 @Component({
   selector: 'app-root',
@@ -25,41 +26,9 @@ export class AppComponent implements OnInit {
   }
 
   downloadCSVButton() {
-    var csvData = this.ConvertToCSV(this.companiesList$);
-    var blob = new Blob([csvData], { type: 'text/csv' });
-    var url = window.URL.createObjectURL(blob);
-
-    var a = document.createElement("a");
-    a.href = url;
-    a.download = 'ETPHoldReview.csv';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
+    CsvDataService.exportToCsv("CompaniesList", this.companiesList$)
   }
 
-  ConvertToCSV(objArray: any): string {
-    var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
-    var str = '';
-    var row = "";
-
-    for (var index in objArray[0]) {
-      row += index + ',';
-    }
-    row = row.slice(0, -1);
-    str += row + '\r\n';
-
-    for (var i = 0; i < array.length; i++) {
-      var line = '';
-      for (var index in array[i]) {
-        if (line != '') line += ','
-
-        line += array[i][index];
-      }
-      str += line + '\r\n';
-    }
-    return str;
-  }
 }
 
 
