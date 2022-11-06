@@ -2,7 +2,7 @@
 <br>
 <hr>
 <div>
-    <ng-container *ngIf="companies$ | async as companies">
+    <ng-container *ngIf="companiesList$ | async as companies">
         <table class="table table-striped">
             <tr>
                 <th>Company Name</th>
@@ -20,4 +20,5 @@
             </tr>
         </table>
     </ng-container>
+    <button class="btn btn-primary" (click)=" downloadCSVButton()">Export to CSV</button>
 </div>
