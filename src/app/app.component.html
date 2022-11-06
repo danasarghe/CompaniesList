@@ -1,9 +1,23 @@
-<app-header></app-header>
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <app-recepies></app-recepies>
-            <app-shopping-list></app-shopping-list>
-        </div>
-    </div>
+<h2>List of companies</h2>
+<br>
+<hr>
+<div>
+    <ng-container *ngIf="companies$ | async as companies">
+        <table class="table table-striped">
+            <tr>
+                <th>Company Name</th>
+                <th>Years in Business</th>
+                <th>Contact Name</th>
+                <th>Contact Phone Number</th>
+                <th>Contact Email</th>
+            </tr>
+            <tr *ngFor="let company of companies">
+                <td>{{company.companyName}}</td>
+                <td>{{company.yearsInBussines}}</td>
+                <td>{{company.contactName}}</td>
+                <td>{{company.contactPhoneNumber}}</td>
+                <td>{{company.contactEmail}}</td>
+            </tr>
+        </table>
+    </ng-container>
 </div>
